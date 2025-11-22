@@ -11,6 +11,7 @@ import BottomNav from '@/components/BottomNav';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { PlayCircle, BarChart } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import type { YogaModule } from '@/lib/types';
 
 export default function YogaPage() {
   const { user } = useAppContext();
@@ -18,15 +19,19 @@ export default function YogaPage() {
   const { toast } = useToast();
 
   const modules = useMemo(() => {
-    const stage = user.stage || 'Reproductive'; // Default to a stage if none is selected
-    return yogaModules[stage] || [];
-  }, [user.stage]);
+    // If user is not logged in or onboarding is not complete, show all modules
+    if (!user.onboardingComplete || !user.stage) {
+      return Object.values(yogaModules).flat();
+    }
+    return yogaModules[user.stage] || [];
+  }, [user.stage, user.onboardingComplete]);
 
-  const handleStartSession = (moduleName: string) => {
+  const handleStartSession = (module: YogaModule) => {
     toast({
-      title: 'Session Started',
-      description: `Starting your ${moduleName} session.`,
+      title: 'Session Starting',
+      description: `Beginning your ${module.name} session.`,
     });
+    router.push(`/yoga/${module.videoUrlId}`);
   };
 
   const handleTrackProgress = () => {
@@ -38,7 +43,11 @@ export default function YogaPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-headline font-bold">Your Yoga Modules</h1>
-          <p className="text-muted-foreground mt-2">Based on your selection of the <span className="font-semibold text-primary">{user.stage || 'Reproductive'} Stage</span>.</p>
+          {user.stage ? (
+            <p className="text-muted-foreground mt-2">Based on your selection of the <span className="font-semibold text-primary">{user.stage} Stage</span>.</p>
+          ) : (
+            <p className="text-muted-foreground mt-2">Explore our available yoga modules.</p>
+          )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
@@ -68,7 +77,7 @@ export default function YogaPage() {
                   <CardDescription>{module.instructions}</CardDescription>
                 </CardContent>
                 <CardFooter className="flex gap-4 bg-muted/50 p-4">
-                  <Button className="flex-1" onClick={() => handleStartSession(module.name)}>
+                  <Button className="flex-1" onClick={() => handleStartSession(module)}>
                     <PlayCircle className="mr-2 h-4 w-4" /> Start Session
                   </Button>
                   <Button variant="secondary" className="flex-1" onClick={handleTrackProgress}>
