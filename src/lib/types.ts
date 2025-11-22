@@ -15,8 +15,8 @@ export type Demographics = {
 };
 
 export type UserProblem = {
-  problemType: 'Dysmenorrhea' | 'Irregular Periods' | 'PMS' | 'Menopause Symptoms' | '';
-  symptoms: string[];
+  problemType?: 'Dysmenorrhea' | 'Irregular Periods' | 'PMS' | 'Menopause Symptoms' | '';
+  symptoms?: string[];
   otherDescription?: string;
 };
 

@@ -14,14 +14,46 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { problemTypes, symptoms as symptomsList } from '@/lib/data';
 import { ArrowRight, Mic } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
+import { cn } from '@/lib/utils';
+import { Separator } from '@/components/ui/separator';
 
 const problemSchema = z.object({
-  problemType: z.string().min(1, 'Please select a problem type.'),
-  symptoms: z.array(z.string()).refine(value => value.some(item => item), {
-    message: 'You have to select at least one symptom.',
-  }),
+  problemType: z.string().optional(),
+  symptoms: z.array(z.string()).optional(),
   otherDescription: z.string().optional(),
+}).superRefine((data, ctx) => {
+  const problemSelected = data.problemType && data.symptoms && data.symptoms.length > 0;
+  const otherDescribed = data.otherDescription && data.otherDescription.trim().length > 2;
+
+  if (problemSelected && otherDescribed) {
+    // Both are filled, which is fine, but we can prioritize one.
+    // Or we could clear one. Let's allow both for now, but not require both.
+  } else if (!problemSelected && !otherDescribed) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: 'Please either select a problem and symptoms, or describe your problem in detail.',
+      path: ['problemType'], 
+    });
+  } else if (!problemSelected && otherDescribed) {
+      // Clear any validation errors on the main selection if other is being used
+  } else if (problemSelected && !otherDescribed) {
+    if (!data.problemType) {
+         ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: 'Please select a problem type.',
+            path: ['problemType'],
+        });
+    }
+    if (!data.symptoms || data.symptoms.length === 0) {
+        ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: 'You have to select at least one symptom.',
+            path: ['symptoms'],
+        });
+    }
+  }
 });
+
 
 export default function ProblemPage() {
   const { user, updateProblem } = useAppContext();
@@ -32,12 +64,16 @@ export default function ProblemPage() {
     defaultValues: {
       problemType: user.problem.problemType || '',
       symptoms: user.problem.symptoms || [],
-      otherDescription: '',
+      otherDescription: user.problem.otherDescription || '',
     },
+    mode: 'onChange',
   });
+  
+  const problemType = form.watch('problemType');
+  const otherDescription = form.watch('otherDescription');
 
   function onSubmit(values: z.infer<typeof problemSchema>) {
-    updateProblem(values as any);
+    updateProblem(values);
     router.push('/stage');
   }
 
@@ -46,20 +82,19 @@ export default function ProblemPage() {
       <Card className="w-full max-w-4xl">
         <CardHeader>
           <CardTitle className="text-3xl font-headline">Problem & Symptoms</CardTitle>
-          <CardDescription>Select the primary problem and any symptoms you are experiencing.</CardDescription>
+          <CardDescription>Select the primary problem and any symptoms you are experiencing, OR describe your problem below.</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <div className="grid md:grid-cols-2 gap-8 items-start">
-                <div className="space-y-8">
-                  <FormField
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <div className={cn("space-y-8 p-4 rounded-md border", otherDescription && otherDescription.length > 0 ? 'opacity-50' : 'opacity-100')}>
+                 <FormField
                     control={form.control}
                     name="problemType"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Problem Type</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} defaultValue={field.value} disabled={!!otherDescription && otherDescription.length > 0}>
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="Select a problem type" />
@@ -94,10 +129,14 @@ export default function ProblemPage() {
                                       <Checkbox
                                         checked={field.value?.includes(item)}
                                         onCheckedChange={(checked) => {
-                                          return checked
-                                            ? field.onChange([...field.value, item])
-                                            : field.onChange(field.value?.filter((value) => value !== item));
+                                          const isEnabled = !otherDescription || otherDescription.length === 0;
+                                          if (isEnabled) {
+                                              return checked
+                                              ? field.onChange([...(field.value || []), item])
+                                              : field.onChange((field.value || []).filter((value) => value !== item));
+                                          }
                                         }}
+                                        disabled={!!otherDescription && otherDescription.length > 0}
                                       />
                                     </FormControl>
                                     <FormLabel className="font-normal">{item}</FormLabel>
@@ -111,36 +150,41 @@ export default function ProblemPage() {
                       </FormItem>
                     )}
                   />
-                </div>
+              </div>
 
-                <div className="space-y-6">
-                    <h3 className="text-lg font-semibold text-foreground">Other (Optional)</h3>
-                    <FormField
-                        control={form.control}
-                        name="otherDescription"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Describe your problem</FormLabel>
-                                <FormControl>
-                                    <Textarea
-                                        placeholder="If your problem isn't listed, please describe it here..."
-                                        className="resize-none"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <div className="space-y-2">
-                        <FormLabel>Send a voice message</FormLabel>
-                        <Button variant="outline" className="w-full">
-                            <Mic className="mr-2 h-4 w-4" />
-                            Start Recording
-                        </Button>
-                        <p className="text-xs text-muted-foreground">Click the button to record a voice message describing your symptoms.</p>
-                    </div>
-                </div>
+              <div className="relative flex items-center justify-center">
+                <Separator className="w-full" />
+                <span className="absolute bg-background px-4 text-sm text-muted-foreground">OR</span>
+              </div>
+                
+              <div className={cn("space-y-6 p-4 rounded-md border", problemType && problemType.length > 0 ? 'opacity-50' : 'opacity-100')}>
+                  <h3 className="text-lg font-semibold text-foreground">Other</h3>
+                  <FormField
+                      control={form.control}
+                      name="otherDescription"
+                      render={({ field }) => (
+                          <FormItem>
+                              <FormLabel>Describe your problem</FormLabel>
+                              <FormControl>
+                                  <Textarea
+                                      placeholder="If your problem isn't listed, please describe it here..."
+                                      className="resize-none"
+                                      {...field}
+                                      disabled={!!problemType && problemType.length > 0}
+                                  />
+                              </FormControl>
+                              <FormMessage />
+                          </FormItem>
+                      )}
+                  />
+                  <div className="space-y-2">
+                      <FormLabel>Send a voice message</FormLabel>
+                      <Button variant="outline" className="w-full" disabled={!!problemType && problemType.length > 0}>
+                          <Mic className="mr-2 h-4 w-4" />
+                          Start Recording
+                      </Button>
+                      <p className="text-xs text-muted-foreground">Click the button to record a voice message describing your symptoms.</p>
+                  </div>
               </div>
 
               <div className="flex justify-end pt-4">
