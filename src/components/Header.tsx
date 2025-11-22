@@ -3,7 +3,7 @@ import { Leaf } from 'lucide-react';
 
 export default function Header() {
   return (
-    <header className="bg-background/80 backdrop-blur-sm border-b sticky top-0 z-40">
+    <header className="bg-transparent backdrop-blur-sm border-b sticky top-0 z-40">
       <div className="container mx-auto flex h-16 items-center justify-between p-4">
         <Link href="/" className="flex items-center gap-2">
           <Leaf className="h-6 w-6 text-primary" />

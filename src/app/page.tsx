@@ -27,6 +27,7 @@ import { useAppContext } from '@/contexts/AppContext';
 import Header from '@/components/Header';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
+import Image from 'next/image';
 
 const formSchema = z.object({
   identifier: z.string().min(10, 'Please enter a valid number.'),
@@ -91,10 +92,17 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+    <div className="relative flex flex-col min-h-screen bg-background">
+       <Image
+          src="https://picsum.photos/seed/1/1920/1080"
+          alt="Soothing background image of a yoga pose"
+          fill
+          className="object-cover -z-10 opacity-20"
+          data-ai-hint="yoga nature"
+        />
       <Header />
       <div className="flex-grow flex items-center justify-center p-4">
-        <Card className="w-full max-w-md shadow-2xl">
+        <Card className="w-full max-w-md bg-background/80 backdrop-blur-sm shadow-2xl">
           <CardHeader className="text-center">
             <CardTitle className="text-3xl font-headline">Welcome to NARI</CardTitle>
             <CardDescription>Natural Approach to Reproduction Integration</CardDescription>
