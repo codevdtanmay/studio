@@ -25,32 +25,16 @@ const problemSchema = z.object({
   const problemSelected = data.problemType && data.symptoms && data.symptoms.length > 0;
   const otherDescribed = data.otherDescription && data.otherDescription.trim().length > 2;
 
-  if (problemSelected && otherDescribed) {
-    // Both are filled, which is fine, but we can prioritize one.
-    // Or we could clear one. Let's allow both for now, but not require both.
-  } else if (!problemSelected && !otherDescribed) {
+  if (!problemSelected && !otherDescribed) {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
-      message: 'Please either select a problem and symptoms, or describe your problem in detail.',
-      path: ['problemType'], 
+      message: 'Please either select a problem and symptoms, or describe your problem.',
+      path: ['problemType'], // Show error on a general field
     });
-  } else if (!problemSelected && otherDescribed) {
-      // Clear any validation errors on the main selection if other is being used
   } else if (problemSelected && !otherDescribed) {
-    if (!data.problemType) {
-         ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: 'Please select a problem type.',
-            path: ['problemType'],
-        });
-    }
-    if (!data.symptoms || data.symptoms.length === 0) {
-        ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: 'You have to select at least one symptom.',
-            path: ['symptoms'],
-        });
-    }
+    // This case is valid
+  } else if (!problemSelected && otherDescribed) {
+    // This case is also valid
   }
 });
 
