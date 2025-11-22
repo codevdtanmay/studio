@@ -1,3 +1,76 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "suryanamaskar",
+      "description": "A person performing Suryanamaskar (Sun Salutation) yoga pose.",
+      "imageUrl": "https://images.unsplash.com/photo-1653393342554-b48f44935014?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx5b2dhJTIwc3VufGVufDB8fHx8MTc2MzgzMTI1MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "yoga sun"
+    },
+    {
+      "id": "baddha-konasana",
+      "description": "A person in Baddha Konasana (Bound Angle Pose).",
+      "imageUrl": "https://images.unsplash.com/photo-1661174898248-474739053d2f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx5b2dhJTIwYnV0dGVyZmx5fGVufDB8fHx8MTc2MzgzMTI1MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "yoga butterfly"
+    },
+    {
+      "id": "bhujangasana",
+      "description": "A person in Bhujangasana (Cobra Pose).",
+      "imageUrl": "https://images.unsplash.com/photo-1758599880425-7862af0a4b50?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx5b2dhJTIwY29icmF8ZW58MHx8fHwxNzYzODMxMjUxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "yoga cobra"
+    },
+    {
+      "id": "nadi-shodhana",
+      "description": "A person practicing Nadi Shodhana (Alternate Nostril Breathing).",
+      "imageUrl": "https://images.unsplash.com/photo-1593164842264-854604db2260?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx5b2dhJTIwYnJlYXRoaW5nfGVufDB8fHx8MTc2MzgzMTI1MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "yoga breathing"
+    },
+    {
+      "id": "setu-bandhasana",
+      "description": "A person in Setu Bandhasana (Bridge Pose).",
+      "imageUrl": "https://images.unsplash.com/photo-1570440548141-5937af349ae1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx5b2dhJTIwYnJpZGdlfGVufDB8fHx8MTc2MzgzMTI1MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "yoga bridge"
+    },
+    {
+      "id": "viparita-karani",
+      "description": "A person in Viparita Karani (Legs-Up-the-Wall Pose).",
+      "imageUrl": "https://images.unsplash.com/photo-1566791056867-61f46eba42bc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8eW9nYSUyMHJlbGF4YXRpb258ZW58MHx8fHwxNzYzODMxMjUyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "yoga relaxation"
+    },
+    {
+      "id": "anulom-vilom",
+      "description": "A person practicing Anulom Vilom (Alternate Nostril Breathing).",
+      "imageUrl": "https://images.unsplash.com/photo-1720788073783-671ef3c496b3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx5b2dhJTIwcHJhbmF5YW1hfGVufDB8fHx8MTc2MzgzMTI1MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "yoga pranayama"
+    },
+    {
+      "id": "bhramari",
+      "description": "A person practicing Bhramari (Humming Bee Breath).",
+      "imageUrl": "https://images.unsplash.com/photo-1593152961455-b943e1cea86b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx5b2dhJTIwbWVkaXRhdGlvbnxlbnwwfHx8fDE3NjM4MDg5MzZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "yoga meditation"
+    },
+    {
+      "id": "tadasana",
+      "description": "A person in Tadasana (Mountain Pose).",
+      "imageUrl": "https://images.unsplash.com/photo-1580492990551-8e359a9addae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx5b2dhJTIwbW91bnRhaW58ZW58MHx8fHwxNzYzODMxMjUxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "yoga mountain"
+    },
+    {
+      "id": "shavasana",
+      "description": "A person in Shavasana (Corpse Pose).",
+      "imageUrl": "https://images.unsplash.com/photo-1622048769696-4d042b1028de?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx5b2dhJTIwcmVzdHxlbnwwfHx8fDE3NjM4MzEyNTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "yoga rest"
+    },
+    {
+      "id": "pranayama",
+      "description": "A person in a seated position for Pranayama sessions.",
+      "imageUrl": "https://images.unsplash.com/photo-1713429204572-8a951faffa74?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxicmVhdGhpbmclMjBleGVyY2lzZXxlbnwwfHx8fDE3NjM4MzEyNTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "breathing exercise"
+    },
+    {
+      "id": "meditation",
+      "description": "A serene setting for meditation.",
+      "imageUrl": "https://images.unsplash.com/photo-1588082012988-c3ac6638660d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYWxtJTIwbWluZGZ1bG5lc3N8ZW58MHx8fHwxNzYzODMxMjUyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "calm mindfulness"
+    }
+  ]
 }
