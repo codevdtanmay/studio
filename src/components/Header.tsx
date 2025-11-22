@@ -11,9 +11,9 @@ export default function Header() {
         </Link>
         <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
           <Link href="/" className="transition-colors hover:text-primary">Home</Link>
-          <Link href="#" className="transition-colors hover:text-primary text-muted-foreground">Problems</Link>
-          <Link href="#" className="transition-colors hover:text-primary text-muted-foreground">Phases</Link>
-          <Link href="#" className="transition-colors hover:text-primary text-muted-foreground">Yoga Module</Link>
+          <Link href="/problem" className="transition-colors hover:text-primary text-muted-foreground">Problems</Link>
+          <Link href="/stage" className="transition-colors hover:text-primary text-muted-foreground">Phases</Link>
+          <Link href="/yoga" className="transition-colors hover:text-primary text-muted-foreground">Yoga Module</Link>
         </nav>
       </div>
     </header>
