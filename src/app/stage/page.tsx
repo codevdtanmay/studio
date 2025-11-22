@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/contexts/AppContext';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -25,14 +25,8 @@ const stages = [
 ];
 
 export default function StagePage() {
-  const { isAuthenticated, updateStage, completeOnboarding } = useAppContext();
+  const { updateStage, completeOnboarding } = useAppContext();
   const router = useRouter();
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.push('/');
-    }
-  }, [isAuthenticated, router]);
 
   const handleStageSelect = (stage: UserStage) => {
     updateStage(stage);

@@ -22,14 +22,8 @@ const problemSchema = z.object({
 });
 
 export default function ProblemPage() {
-  const { isAuthenticated, user, updateProblem } = useAppContext();
+  const { user, updateProblem } = useAppContext();
   const router = useRouter();
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.push('/');
-    }
-  }, [isAuthenticated, router]);
 
   const form = useForm<z.infer<typeof problemSchema>>({
     resolver: zodResolver(problemSchema),

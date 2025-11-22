@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useAppContext } from '@/contexts/AppContext';
@@ -13,20 +13,13 @@ import { PlayCircle, BarChart } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export default function YogaPage() {
-  const { isAuthenticated, user } = useAppContext();
+  const { user } = useAppContext();
   const router = useRouter();
   const { toast } = useToast();
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.push('/');
-    } else if (!user.onboardingComplete) {
-      router.push('/details');
-    }
-  }, [isAuthenticated, user.onboardingComplete, router]);
-
   const modules = useMemo(() => {
-    return user.stage ? yogaModules[user.stage] : [];
+    const stage = user.stage || 'Reproductive'; // Default to a stage if none is selected
+    return yogaModules[stage] || [];
   }, [user.stage]);
 
   const handleStartSession = (moduleName: string) => {
@@ -40,20 +33,12 @@ export default function YogaPage() {
     router.push('/dashboard');
   };
 
-  if (!user.stage) {
-    return (
-        <div className="flex items-center justify-center min-h-screen">
-            <p>Please complete onboarding to see your yoga modules.</p>
-        </div>
-    );
-  }
-
   return (
     <div className="bg-background min-h-screen pb-20">
       <div className="container mx-auto px-4 py-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-headline font-bold">Your Yoga Modules</h1>
-          <p className="text-muted-foreground mt-2">Based on your selection of the <span className="font-semibold text-primary">{user.stage} Stage</span>.</p>
+          <p className="text-muted-foreground mt-2">Based on your selection of the <span className="font-semibold text-primary">{user.stage || 'Reproductive'} Stage</span>.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
