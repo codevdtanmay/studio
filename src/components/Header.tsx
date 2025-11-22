@@ -9,7 +9,7 @@ export default function Header() {
           <Leaf className="h-6 w-6 text-primary" />
           <div>
             <span className="font-bold text-xl font-headline">NARI</span>
-            <p className="text-xs text-muted-foreground">Natural approach to reproduction Integration</p>
+            <p className="text-xs text-muted-foreground">Natural Approach to Reproduction Integration</p>
           </div>
         </Link>
         <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">

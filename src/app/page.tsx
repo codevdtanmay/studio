@@ -97,7 +97,7 @@ export default function LoginPage() {
         <Card className="w-full max-w-md shadow-2xl">
           <CardHeader className="text-center">
             <CardTitle className="text-3xl font-headline">Welcome to NARI</CardTitle>
-            <CardDescription>Natural approach to reproduction Integration</CardDescription>
+            <CardDescription>Natural Approach to Reproduction Integration</CardDescription>
           </CardHeader>
           <CardContent>
             <Form {...form}>
