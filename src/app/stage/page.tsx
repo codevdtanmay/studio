@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/contexts/AppContext';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import type { UserStage } from '@/lib/types';
-import { motion } from 'framer-motion';
 
 const stages = [
   {
@@ -49,11 +48,8 @@ export default function StagePage() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl">
         {stages.map((stage, index) => (
-          <motion.div
+          <div
             key={stage.value}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
           >
             <Card
               onClick={() => handleStageSelect(stage.value)}
@@ -64,12 +60,9 @@ export default function StagePage() {
                 <CardDescription className="text-lg mt-2">({stage.age})</CardDescription>
               </CardHeader>
             </Card>
-          </motion.div>
+          </div>
         ))}
       </div>
     </div>
   );
 }
-
-// Framer Motion is a client-side library, but since this page is already 'use client' this is fine.
-// If not, we'd need to extract the animated part to its own client component.
