@@ -8,15 +8,25 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Timer, ArrowLeft } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 export default function YogaSessionPage() {
   const router = useRouter();
   const params = useParams();
   const slug = params.slug as string;
+  const { toast } = useToast();
 
   const allModules = Object.values(yogaModules).flat();
   const module = allModules.find(m => m.videoUrlId === slug);
   const placeholder = PlaceHolderImages.find(p => p.id === slug);
+
+  const handleMarkAsComplete = () => {
+    toast({
+      title: 'Session Complete!',
+      description: `You've completed the ${module?.name} session.`,
+    });
+    router.push('/yoga');
+  };
 
   if (!module) {
     return (
@@ -68,7 +78,7 @@ export default function YogaSessionPage() {
                         <p className="font-bold">{module.duration}</p>
                     </div>
                 </div>
-                 <Button size="lg">Mark as Complete</Button>
+                 <Button size="lg" onClick={handleMarkAsComplete}>Mark as Complete</Button>
             </div>
           </CardContent>
         </Card>
