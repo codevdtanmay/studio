@@ -4,7 +4,7 @@ import { AppProvider } from '@/contexts/AppContext';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'Yoga for Her',
+  title: 'NARI - Natural approach to reproduction Integration',
   description: 'Personalized yoga modules for women\'s health',
 };
 

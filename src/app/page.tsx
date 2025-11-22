@@ -96,8 +96,8 @@ export default function LoginPage() {
       <div className="flex-grow flex items-center justify-center p-4">
         <Card className="w-full max-w-md shadow-2xl">
           <CardHeader className="text-center">
-            <CardTitle className="text-3xl font-headline">Welcome to Yoga for Her</CardTitle>
-            <CardDescription>Login to begin your wellness journey</CardDescription>
+            <CardTitle className="text-3xl font-headline">Welcome to NARI</CardTitle>
+            <CardDescription>Natural approach to reproduction Integration</CardDescription>
           </CardHeader>
           <CardContent>
             <Form {...form}>
